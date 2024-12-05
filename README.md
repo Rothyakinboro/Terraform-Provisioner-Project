@@ -30,8 +30,8 @@ data "aws_ami" "Provisioner-AMI" {
 resource "aws_instance" "provisioner-test" {
   ami                    = data.aws_ami.Provisioner-AMI.id
   instance_type          = "t2.medium"
-  availability_zone      = "ca-central-1a"
-  key_name               = "WemaDevOpsEC2"
+  availability_zone      = "Your AZ"
+  key_name               = "Your pem key"
   vpc_security_group_ids = [aws_security_group.provisioner-sg.id]
 }
 
@@ -77,7 +77,7 @@ resource "null_resource" "Provision-null" {
   connection {
     type        = "ssh"
     host        = aws_instance.provisioner-test.public_ip
-    private_key = file("~/Downloads/WemaDevOpsEC2.pem")
+    private_key = file("~/Downloads/your pem key")
     user        = "ec2-user"
     timeout     = "1m"
   }
